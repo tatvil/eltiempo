@@ -1,0 +1,8 @@
+database:
+  host: "villaema.es"
+  user: "villae9575"
+  password: "_reHQ2ML"
+  database: "inmodb"
+
+api_keys:
+  weather_api_key: "69ef7f26726bba12b03c74b1e97b550f"

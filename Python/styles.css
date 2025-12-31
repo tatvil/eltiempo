@@ -1,0 +1,29 @@
+colors {
+    background-color: #f0f0f0;
+    color: #0054a4;
+}
+TFrame {
+    background-color: #0054a4;
+}
+
+TLabel {
+    background-color: #f0f0f0;
+    color: #0054a4;
+    font: Arial 12;
+}
+
+TButton {
+    background-color: #005f5f;
+    color: white;
+    font: Arial 10 bold;
+}
+
+/* Estilo para el título */
+.Label#titulo {
+    background-color: #0054a4;
+}
+
+/* Estilo para el fondo de la ventana */
+root {
+    background-color: beige;
+}
