@@ -1,17 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El tiempo</title>
+    <title>El Tiempo</title>
     <link rel="stylesheet" href="css/estilos.css">
 </head>
-<body>
-    <header>
-        <h1>El Tiempo</h1>
-    </header>
-    <a href="#">Bullet Journal</a>
-    <a href="#">Amanecer y Anochecer</a>
+
+<body class="app-tiempo">
+
+<header>
+    <h1>El Tiempo</h1>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="#">Bullet Journal</a></li>
+        <li><a href="#">Amanecer y Anochecer</a></li>
+        <li><a href="#">Calendario lunar vs tiempo</a></li>
+        <li><a href="#">Temperaturas</a></li>
+    </ul>
+</nav>
+
+<main class="container">
+
+    <article class="tarjeta">
+        <h2>Bullet Journal</h2>
+        <p>Descripción de Bullet Journal (En construcción)</p>
+    </article>
+
+<article class="tarjeta" id="sun-card">
+    <h2 id="sun-title">Amanecer y Anochecer</h2>
+    <p id="location">Obteniendo ubicación...</p>
+    <p>Amanecer: <strong id="sunrise">--:--</strong></p>
+    <p>Anochecer: <strong id="sunset">--:--</strong></p>
+    <p>Duración del día: <strong id="day-length">--:--</strong></p>
+    <p id="countdown">Tiempo hasta anochecer: --:--:--</p>
+    <p id="sun-icon">☀️</p>
+</article>
+
+
+
+    <article class="tarjeta">
+        <h2>Calendario lunar vs tiempo</h2>
+        <p>Descripción de Calendario lunar vs tiempo (En construcción)</p>
+    </article>
+
+    <article class="tarjeta">
+        <h2>Temperaturas</h2>
+        <p>Descripción de Temperaturas (redondeados, multiciudad)</p>
+    </article>
+
+</main>
+
+<footer>
+    <p>&copy; <span id="year"></span> El Tiempo</p>
+</footer>
+
+<script src="js/codigo.js"></script>
 
 </body>
 </html>

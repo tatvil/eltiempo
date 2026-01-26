@@ -1,4 +1,5 @@
 config.php
+Python/config.yml
 .env
 *.secret
 servidor/
