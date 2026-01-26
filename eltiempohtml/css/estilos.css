@@ -1,0 +1,75 @@
+/*
+☀️ 1. Azul + Blanco (clásica y limpia)
+
+    Azul claro (#4DA3FF) para cielos despejados.
+
+    Azul oscuro (#1E3A8A) para encabezados o modo noche.
+
+    Blanco puro (#FFFFFF) para iconos y texto.
+    Por qué funciona: transmite frescura, claridad y confianza. Es la paleta más usada porque se asocia directamente con el cielo.
+
+🌦️ 2. Gradientes inspirados en el clima
+
+    Amanecer: naranja suave → rosa → azul claro
+
+    Día soleado: amarillo → azul
+
+    Tormenta: gris azulado → azul profundo
+    Por qué funciona: da dinamismo y hace que la app se sienta “viva”, cambiando según el clima.
+
+🌧️ 3. Grises + Azules apagados (minimalista)
+
+    Gris claro (#E5E7EB)
+
+    Gris oscuro (#374151)
+
+    Azul grisáceo (#64748B)  
+    Por qué funciona: elegante, moderno y perfecto si buscas un estilo sobrio.
+
+🌡️ 4. Paleta térmica (para apps centradas en temperatura)
+
+    Frío: azul hielo (#A0E9FF)
+
+    Templado: verde menta (#7EE081)
+
+    Calor: naranja (#FF8A3D) y rojo suave (#FF5A5F)
+    Por qué funciona: intuitiva; el usuario entiende la temperatura sin leer números.
+
+🌙 5. Modo oscuro elegante
+
+    Negro suave (#0D0D0D)
+
+    Azul petróleo (#0F172A)
+
+    Cian brillante (#22D3EE) para resaltar datos
+    Por qué funciona: reduce fatiga visual y se ve muy moderno. */
+
+/* Fuentes importadas corregidas */
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Nunito:wght@400;600&display=swap');
+
+:root {
+    /* Paleta refinada */
+    --color-primario: #F5F5F5;   /* Azul noche espiritual */
+    --color-hover: #24314A;      /* Azul noche más oscuro */
+    --color-secundario: #A1A1A1; /* Azul muy suave */
+    --color-fondo: #0D0D0D;      /* Crema papel antiguo */
+    --color-texto: #2b2b2b;
+    --color-acento: #E8A23A;     /* Dorado litúrgico */
+    --blanco-puro: #FFFFFF;
+    --sombra: rgba(47, 58, 86, 0.15);
+    --color-tarjeta: #1A1A1A;
+}
+
+body {
+    margin: 0;
+    font-family: 'Nunito', sans-serif; /* Fuente base moderna */
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    line-height: 1.6;
+}
+
+header {
+    background-color: var(--color-fondo);
+    color: var(--color-secundario);
+    align-items: center;
+}
