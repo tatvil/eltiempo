@@ -130,3 +130,107 @@ async function initSunCard() {
 
 // --- Ejecutar ---
 initSunCard();
+
+
+///***********************************************
+// FASES DE LA LUNA
+// ******************************************* */
+
+function getMoonPhase() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1;
+    const day = now.getDate();
+
+    // Algoritmo simple de fase lunar (0 = luna nueva, 7 = llena)
+    const c = Math.floor(365.25 * year);
+    const e = Math.floor(30.6 * (month + 1));
+    const jd = c + e + day - 694039.09; 
+    const phase = (jd / 29.53) % 1; 
+    const age = phase * 29.53;
+
+    let phaseName = "";
+    let icon = "";
+
+    if (age < 1.84566) { phaseName = "Luna Nueva"; icon = "🌑"; }
+    else if (age < 5.53699) { phaseName = "Creciente Iluminante"; icon = "🌒"; }
+    else if (age < 9.22831) { phaseName = "Cuarto Creciente"; icon = "🌓"; }
+    else if (age < 12.91963) { phaseName = "Gibosa Creciente"; icon = "🌔"; }
+    else if (age < 16.61096) { phaseName = "Luna Llena"; icon = "🌕"; }
+    else if (age < 20.30228) { phaseName = "Gibosa Menguante"; icon = "🌖"; }
+    else if (age < 23.99361) { phaseName = "Cuarto Menguante"; icon = "🌗"; }
+    else if (age < 27.68493) { phaseName = "Creciente Menguante"; icon = "🌘"; }
+    else { phaseName = "Luna Nueva"; icon = "🌑"; }
+
+    document.getElementById("moon-phase").textContent = phaseName;
+    document.getElementById("moon-icon").textContent = icon;
+}
+
+getMoonPhase();
+
+function moonPhaseForDate(year, month, day) {
+    const c = Math.floor(365.25 * year);
+    const e = Math.floor(30.6 * (month + 1));
+    const jd = c + e + day - 694039.09;
+    const phase = (jd / 29.53) % 1;
+    const age = phase * 29.53;
+
+    if (age < 1.84566) return "🌑";
+    if (age < 5.53699) return "🌒";
+    if (age < 9.22831) return "🌓";
+    if (age < 12.91963) return "🌔";
+    if (age < 16.61096) return "🌕";
+    if (age < 20.30228) return "🌖";
+    if (age < 23.99361) return "🌗";
+    if (age < 27.68493) return "🌘";
+    return "🌑";
+}
+
+function generateMiniMoonCalendar() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth(); // 0-11
+    const today = now.getDate();
+
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const container = document.getElementById("moon-mini-calendar");
+
+    container.innerHTML = ""; // limpiar
+
+    // Día de la semana del día 1 (0 = domingo, 1 = lunes...)
+    let firstDay = new Date(year, month, 1).getDay();
+
+    // Convertimos para que Lunes = 0, Domingo = 6
+    firstDay = (firstDay === 0) ? 6 : firstDay - 1;
+
+    // Añadir huecos antes del día 1
+    for (let i = 0; i < firstDay; i++) {
+        const empty = document.createElement("div");
+        empty.classList.add("moon-day");
+        empty.style.visibility = "hidden"; // mantiene el grid limpio
+        container.appendChild(empty);
+    }
+
+    // Añadir los días reales
+    for (let day = 1; day <= daysInMonth; day++) {
+        const icon = moonPhaseForDate(year, month + 1, day);
+
+        const div = document.createElement("div");
+        div.classList.add("moon-day");
+
+        if (day === today) {
+            div.classList.add("moon-today");
+        }
+
+        div.innerHTML = `
+            <span>${day}</span>
+            <span class="moon-icon">${icon}</span>
+        `;
+
+        container.appendChild(div);
+    }
+}
+
+
+// Ejecutar al cargar
+generateMiniMoonCalendar();
