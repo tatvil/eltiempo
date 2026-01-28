@@ -138,3 +138,53 @@ footer {
     font-size: 2rem;
     margin-top: 5px;     /* pequeño espacio sobre el icono */
 }
+
+#moon-card {
+    text-align: center;
+}
+
+#moon-icon {
+    font-size: 2rem;
+    margin-top: 5px;
+}
+
+#moon-mini-calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.moon-day {
+    padding: 4px;
+    border-radius: 6px;
+    background: var(--color-fondo);
+    font-size: 0.9rem;
+}
+
+.moon-today {
+    background: var(--color-hover);
+    font-weight: bold;
+}
+
+.moon-icon {
+    font-size: 1.4rem;
+    display: block;
+}
+
+#moon-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-top: 10px;
+    margin-bottom: 6px;
+    text-align: center;
+    font-weight: 600;
+    color: var(--color-acento);
+    font-size: 0.85rem;
+}
+
+#moon-weekdays span {
+    padding: 4px 0;
+    border-bottom: 1px solid var(--color-borde);
+}
