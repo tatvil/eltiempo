@@ -188,3 +188,63 @@ footer {
     padding: 4px 0;
     border-bottom: 1px solid var(--color-borde);
 }
+
+
+/* ---------- BULLET JOURNAL SUMMARY ---------- */
+
+#bullet-summary {
+    cursor: default;
+}
+
+#bullet-summary .bj-resumen {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding: 14px;
+}
+
+#bullet-summary .bj-item {
+    background: rgba(13,13,13,0.8);
+    border: 1px solid var(--color-borde);
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: inset 0 0 12px rgba(0,0,0,.4);
+}
+
+#bullet-summary .bj-item span {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--color-secundario);
+    letter-spacing: .5px;
+}
+
+#bullet-summary .bj-item strong {
+    font-size: 1.4rem;
+    font-family: 'EB Garamond', serif;
+    color: var(--color-acento);
+}
+
+/* Botón */
+
+#bullet-summary .btn , #weather-card .btn {
+    display: block;
+    width: 75%;
+    margin: 12px auto 14px;
+    padding: 10px;
+    background: linear-gradient(135deg, #1E3A5F, #111827);
+    color: var(--blanco-puro);
+    border-radius: 12px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 0.9rem;
+    border: 1px solid var(--color-borde);
+    transition: all .3s ease;
+}
+
+#bullet-summary .btn:hover, #weather-card .btn:hover {
+    background: linear-gradient(135deg, #2b4f80, #1E293B);
+    transform: translateY(-2px);
+}
+
+

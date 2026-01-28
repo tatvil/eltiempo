@@ -1,4 +1,7 @@
-// --- Funciones auxiliares ---
+/* ==============================================
+   FUNCIONES AUXILIARES
+============================================== */
+
 function formatTime(dateString) {
     const date = new Date(dateString);
     return date.toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" });
@@ -11,15 +14,25 @@ function formatDuration(seconds) {
     return `${h}h ${m}m ${s}s`;
 }
 
-// --- Obtener datos Sunrise-Sunset API ---
-async function getSunTimes(lat, lon) {
-    const url = `https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lon}&formatted=0`;
-    const response = await fetch(url);
-    const data = await response.json();
-    return data.results;
+function ponerlaFechaActual() {
+    const now = new Date();
+    const dateString = now.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    document.getElementById("fecha-actual").textContent = dateString;
 }
 
-// --- Obtener nombre de ciudad ---
+/* ==============================================
+   GEOLOCALIZACIÓN CENTRAL
+============================================== */
+async function getLocationOnce() {
+    return new Promise((resolve, reject) => {
+        if (!navigator.geolocation) reject("Geolocalización no soportada");
+        navigator.geolocation.getCurrentPosition(
+            pos => resolve({ lat: pos.coords.latitude, lon: pos.coords.longitude }),
+            err => reject(err.message)
+        );
+    });
+}
+
 async function getLocationName(lat, lon) {
     try {
         const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`;
@@ -39,18 +52,16 @@ async function getLocationName(lat, lon) {
     }
 }
 
-// --- Detectar ubicación actual ---
-function getLocation() {
-    return new Promise((resolve, reject) => {
-        if (!navigator.geolocation) reject("Geolocalización no soportada");
-        navigator.geolocation.getCurrentPosition(
-            pos => resolve({ lat: pos.coords.latitude, lon: pos.coords.longitude }),
-            err => reject(err.message)
-        );
-    });
+/* ==============================================
+   TARJETA SOL / ANOCHECER
+============================================== */
+async function getSunTimes(lat, lon) {
+    const url = `https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lon}&formatted=0`;
+    const response = await fetch(url);
+    const data = await response.json();
+    return data.results;
 }
 
-// --- Actualizar tarjeta ---
 async function updateSunCard(lat, lon) {
     try {
         const sun = await getSunTimes(lat, lon);
@@ -58,7 +69,6 @@ async function updateSunCard(lat, lon) {
 
         const sunrise = new Date(sun.sunrise);
         const sunset = new Date(sun.sunset);
-        const now = new Date();
 
         document.getElementById("sunrise").textContent = formatTime(sun.sunrise);
         document.getElementById("sunset").textContent = formatTime(sun.sunset);
@@ -71,11 +81,9 @@ async function updateSunCard(lat, lon) {
         function updateMode() {
             const now = new Date();
             if (now >= sunrise && now <= sunset) {
-                card.style.transition = "background 1s ease";
                 card.style.background = "rgba(26,26,26,0.85)";
                 sunIcon.textContent = "☀️";
             } else {
-                card.style.transition = "background 1s ease";
                 card.style.background = "rgba(10,10,30,0.85)";
                 sunIcon.textContent = "🌙";
             }
@@ -83,31 +91,22 @@ async function updateSunCard(lat, lon) {
 
         function updateCountdown() {
             const now = new Date();
-            let target, text;
+            let target;
+            let text = "Queda ";
 
-            text = "Queda ";
+            if (now < sunrise) target = sunrise;
+            else if (now >= sunrise && now <= sunset) target = sunset;
+            else target = new Date(sunrise.getTime() + 24*60*60*1000);
 
-            if (now < sunrise) { // antes del amanecer
-                target = sunrise;
-            } else if (now >= sunrise && now <= sunset) { // durante el día
-                target = sunset;
-            } else { // después del anochecer
-                target = new Date(sunrise.getTime() + 24*60*60*1000); // siguiente amanecer
-            }
-
-            const diff = Math.floor((target - now) / 1000); // calcular diferencia en segundos
+            const diff = Math.floor((target - now) / 1000);
             const durationStr = formatDuration(diff);
 
-            // Añadir texto específico según el objetivo
-            if (target.getTime() === sunrise.getTime()) {
-                text += durationStr + " hasta anochecer";
-            } else {
-                text += durationStr + " hasta amancer";
-            }
+            text += (target.getTime() === sunrise.getTime()) 
+                    ? durationStr + " hasta anochecer" 
+                    : durationStr + " hasta amanecer";
 
             document.getElementById("countdown").textContent = text;
-    }
-
+        }
 
         updateMode();
         updateCountdown();
@@ -118,39 +117,64 @@ async function updateSunCard(lat, lon) {
     }
 }
 
-// --- Inicialización ---
-async function initSunCard() {
+/* ==============================================
+   TIEMPO ACTUAL
+============================================== */
+async function getWeather(position) {
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
+
+    // Open-Meteo API
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&temperature_unit=celsius&windspeed_unit=kmh&timezone=auto`;
+
     try {
-        const { lat, lon } = await getLocation();
-        updateSunCard(lat, lon);
+        const res = await fetch(url);
+        const data = await res.json();
+        const weather = data.current_weather;
+
+        document.getElementById("temperature").textContent = `${weather.temperature}°C`;
+        document.getElementById("condition").textContent = `Viento ${weather.windspeed} km/h`;
+        document.getElementById("humidity").textContent = "N/A";
+        document.getElementById("wind").textContent = "N/A";
+
     } catch (err) {
-        document.getElementById("location").textContent = "Error: " + err;
+        document.getElementById("location").textContent = "Error al obtener el tiempo";
+        console.error(err);
     }
 }
 
-// --- Ejecutar ---
-initSunCard();
+function showError(error) {
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+            document.getElementById("location").textContent = "Permiso denegado para obtener ubicación.";
+            break;
+        case error.POSITION_UNAVAILABLE:
+            document.getElementById("location").textContent = "Ubicación no disponible.";
+            break;
+        case error.TIMEOUT:
+            document.getElementById("location").textContent = "Tiempo de espera agotado.";
+            break;
+        default:
+            document.getElementById("location").textContent = "Error desconocido.";
+    }
+}
 
-
-///***********************************************
-// FASES DE LA LUNA
-// ******************************************* */
-
+/* ==============================================
+   FASES LUNARES
+============================================== */
 function getMoonPhase() {
     const now = new Date();
     const year = now.getFullYear();
     const month = now.getMonth() + 1;
     const day = now.getDate();
 
-    // Algoritmo simple de fase lunar (0 = luna nueva, 7 = llena)
     const c = Math.floor(365.25 * year);
     const e = Math.floor(30.6 * (month + 1));
     const jd = c + e + day - 694039.09; 
     const phase = (jd / 29.53) % 1; 
     const age = phase * 29.53;
 
-    let phaseName = "";
-    let icon = "";
+    let phaseName = "", icon = "";
 
     if (age < 1.84566) { phaseName = "Luna Nueva"; icon = "🌑"; }
     else if (age < 5.53699) { phaseName = "Creciente Iluminante"; icon = "🌒"; }
@@ -165,8 +189,6 @@ function getMoonPhase() {
     document.getElementById("moon-phase").textContent = phaseName;
     document.getElementById("moon-icon").textContent = icon;
 }
-
-getMoonPhase();
 
 function moonPhaseForDate(year, month, day) {
     const c = Math.floor(365.25 * year);
@@ -189,48 +211,82 @@ function moonPhaseForDate(year, month, day) {
 function generateMiniMoonCalendar() {
     const now = new Date();
     const year = now.getFullYear();
-    const month = now.getMonth(); // 0-11
+    const month = now.getMonth();
     const today = now.getDate();
-
     const daysInMonth = new Date(year, month + 1, 0).getDate();
     const container = document.getElementById("moon-mini-calendar");
 
-    container.innerHTML = ""; // limpiar
+    container.innerHTML = "";
 
-    // Día de la semana del día 1 (0 = domingo, 1 = lunes...)
     let firstDay = new Date(year, month, 1).getDay();
-
-    // Convertimos para que Lunes = 0, Domingo = 6
     firstDay = (firstDay === 0) ? 6 : firstDay - 1;
 
-    // Añadir huecos antes del día 1
     for (let i = 0; i < firstDay; i++) {
         const empty = document.createElement("div");
         empty.classList.add("moon-day");
-        empty.style.visibility = "hidden"; // mantiene el grid limpio
+        empty.style.visibility = "hidden";
         container.appendChild(empty);
     }
 
-    // Añadir los días reales
     for (let day = 1; day <= daysInMonth; day++) {
         const icon = moonPhaseForDate(year, month + 1, day);
-
         const div = document.createElement("div");
         div.classList.add("moon-day");
+        if (day === today) div.classList.add("moon-today");
 
-        if (day === today) {
-            div.classList.add("moon-today");
-        }
-
-        div.innerHTML = `
-            <span>${day}</span>
-            <span class="moon-icon">${icon}</span>
-        `;
-
+        div.innerHTML = `<span>${day}</span><span class="moon-icon">${icon}</span>`;
         container.appendChild(div);
     }
 }
 
+/* ==============================================
+   BULLET JOURNAL RESUMEN
+============================================== */
+function loadBulletSummary() {
+    const data = JSON.parse(localStorage.getItem("journalData")) || {};
+    const now = new Date();
+    const month = now.getMonth();
+    const year = now.getFullYear();
 
-// Ejecutar al cargar
-generateMiniMoonCalendar();
+    let rosario = 0, caminar = 0, vitaminas = 0, agua = 0;
+
+    for (let key in data) {
+        const d = new Date(key);
+        if (d.getMonth() === month && d.getFullYear() === year) {
+            if(data[key].rosario) rosario++;
+            if(data[key].caminar) caminar++;
+            if(data[key].vitaminas) vitaminas++;
+            agua += Number(data[key].agua || 0);
+        }
+    }
+
+    document.getElementById("bj-rosario").textContent = rosario;
+    document.getElementById("bj-caminar").textContent = caminar;
+    document.getElementById("bj-vitaminas").textContent = vitaminas;
+    document.getElementById("bj-agua").textContent = agua;
+}
+
+/* ==============================================
+   INICIALIZACIÓN
+============================================== */
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("year").innerText = new Date().getFullYear();
+
+    ponerlaFechaActual();
+    loadBulletSummary();
+    getMoonPhase();
+    generateMiniMoonCalendar();
+
+    // Inicializar sol/luna + tiempo actual con una sola geolocalización
+    initApp();
+});
+
+async function initApp() {
+    try {
+        const { lat, lon } = await getLocationOnce();
+        updateSunCard(lat, lon);
+        getWeather({ coords: { latitude: lat, longitude: lon } });
+    } catch (err) {
+        document.getElementById("location").textContent = "Error: " + err;
+    }
+}

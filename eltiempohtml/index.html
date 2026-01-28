@@ -11,19 +11,47 @@
 
 <header>
     <h1>El Tiempo</h1>
+    <h2 id="location">Obteniendo ubicación...</h2>
+    <h3 id="fecha-actual">Fecha</h3>
 </header>
 
 <main class="container">
 
-    <article class="tarjeta">
+    <article class="tarjeta" id="bullet-summary">
+
         <h2>Bullet Journal</h2>
-        <p>Descripción de Bullet Journal (En construcción)</p>
-        <a href="bullet-journal.html">Ir al Bullet Journal</a>
+
+        <div class="bj-resumen">
+
+            <div class="bj-item">
+                <span>ROSARIO</span>
+                <strong id="bj-rosario">0</strong>
+            </div>
+
+            <div class="bj-item">
+                <span>CAMINAR</span>
+                <strong id="bj-caminar">0</strong>
+            </div>
+
+            <div class="bj-item">
+                <span>VITAMINAS</span>
+                <strong id="bj-vitaminas">0</strong>
+            </div>
+
+            <div class="bj-item">
+                <span>AGUA</span>
+                <strong id="bj-agua">0</strong>
+            </div>
+
+        </div>
+
+        <a class="btn" href="bullet-journal.html">Abrir Bullet Journal</a>
+
     </article>
+
 
     <article class="tarjeta" id="sun-card">
         <h2 id="sun-title">Amanecer y Anochecer</h2>
-        <p id="location">Obteniendo ubicación...</p>
         <p>Amanecer: <strong id="sunrise">--:--</strong></p>
         <p>Anochecer: <strong id="sunset">--:--</strong></p>
         <p>Duración del día: <strong id="day-length">--:--</strong></p>
@@ -52,12 +80,13 @@
     <div id="moon-mini-calendar"></div>
 </article>
 
-
-
-
-    <article class="tarjeta">
-        <h2>Temperaturas</h2>
-        <p>Descripción de Temperaturas (redondeados, multiciudad)</p>
+ <article class="tarjeta" id="weather-card">
+        <h2>Tiempo Actual 🌤️</h2>
+        <p>Temperatura: <strong id="temperature">--°C</strong></p>
+        <p>Condición: <strong id="condition">--</strong></p>
+        <p>Humedad: <strong id="humidity">--%</strong></p>
+        <p>Viento: <strong id="wind">-- km/h</strong></p>
+        <a class="btn" href="estadisticas.html">Ver estadísticas</a>
     </article>
 
 </main>
