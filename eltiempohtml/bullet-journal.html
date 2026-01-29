@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda Espiritual AGE</title>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,600;1,400&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/bullet-journal.css">
+</head>
+<body>
+
+    <div class="no-print">
+        <header>
+            <h1>Bullet Jounal</h1>
+        </header>
+
+        <div class="toolbar">
+            <div class="day-nav">
+                <button onclick="changeDay(-1)">◀</button>
+                <span id="currentDateDisplay"></span>
+                <button onclick="changeDay(1)">▶</button>
+            </div>
+            <div class="print-actions">
+                <button onclick="printFullMonth('A5')">Imprimir Mes (A5)</button>
+                <button onclick="printPlannerA4()">Planner Corcho (A4)</button>
+            </div>
+        </div>
+
+        <section class="card daily-panel">
+            <h3 id="saintDisplay">Cargando santoral...</h3>
+            <p id="cumpleDisplay" style="color: var(--color-acento);"></p>
+
+            <div class="tracker-group">
+                <label><input type="checkbox" id="rosario" class="checkbox"> Rosario</label>
+                <label><input type="checkbox" id="vitaminas" class="checkbox"> Vitaminas/Medicina</label>
+            </div>
+
+            <div class="input-group">
+                <label>Pasos: <input type="number" id="caminar" placeholder="0"></label>
+                <label>Agua (vasos): <input type="number" id="agua" placeholder="0"></label>
+            </div>
+
+            <label>Reflexión / Notas:</label>
+            <textarea id="mood" placeholder="¿Cómo ha ido el día?"></textarea>
+        </section>
+
+        <button class="reset" onclick="resetData()">Borrar Historial</button>
+    </div>
+
+    <div id="printArea" class="only-print"></div>
+
+    <script src="js/bullet-journal.js"></script>
+</body>
+</html>
