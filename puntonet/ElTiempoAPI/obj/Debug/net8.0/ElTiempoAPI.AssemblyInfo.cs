@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ElTiempoAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+949bc11ebf58f4dcf8cb30bc070ab67dcf89cfe3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f33d2b3e6b5213e0d32e1fe996b291a1293a1caf")]
 [assembly: System.Reflection.AssemblyProductAttribute("ElTiempoAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ElTiempoAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
