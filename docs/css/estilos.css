@@ -95,10 +95,11 @@ nav a:hover {
 
 /* --- Párrafos generales de todas las tarjetas --- */
 .tarjeta p {
-    padding: 1rem;
-    font-size: 0.95rem;
     text-align: center;
     color: var(--color-texto);
+    font-size: 1rem;
+    margin: 2px 0;       /* menos espacio entre líneas */
+    padding: 0;          /* eliminar padding extra */
 }
 
 /* --- Ajuste para dispositivos pequeños --- */
@@ -126,27 +127,7 @@ footer {
 }
 
 /* --- Tarjeta Amanecer/Anochecer: más compacta --- */
-#sun-card p, 
-#sun-card #sun-icon {
-    font-size: 1rem;
-    margin: 2px 0;       /* menos espacio entre líneas */
-    padding: 0;          /* eliminar padding extra */
-    text-align: center;
-}
 
-#sun-icon {
-    font-size: 2rem;
-    margin-top: 5px;     /* pequeño espacio sobre el icono */
-}
-
-#moon-card {
-    text-align: center;
-}
-
-#moon-icon {
-    font-size: 2rem;
-    margin-top: 5px;
-}
 
 #moon-mini-calendar {
     display: grid;
@@ -248,3 +229,22 @@ footer {
 }
 
 
+/* ICONOS */
+
+.termometro {
+  width: 48px;
+}
+
+.termometro.neutro {
+    fill: var(--color-primario);
+}
+
+.termometro.frio {
+    fill: var(--color-acento);
+}
+
+.termometro.calor {
+    fill: #f44336;
+}
+
+.termometro.templado { fill: #4caf50; }

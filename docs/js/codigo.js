@@ -20,6 +20,31 @@ function ponerlaFechaActual() {
     document.getElementById("fecha-actual").textContent = dateString;
 }
 
+/* ================================
+   6. SANTO DEL DÍA
+================================ */
+
+async function santoDelDia() {
+    const hoy = new Date();
+    const offset = hoy.getTimezoneOffset() * 60000;
+    const fechaISO = new Date(hoy - offset).toISOString().split('T')[0];
+
+    try {
+        const res = await fetch('data/santos.json');
+        const listaSantos = await res.json();
+
+        const elSanto = listaSantos.find(d => d.fecha === fechaISO);
+
+        if (elSanto) {
+            document.getElementById("santo-del-dia").textContent = elSanto.santo;
+            santoDelDiaElem.textContent = elSanto.santo;
+            descripcionSantoDelDiaElem.textContent = elSanto.descripcion || "";
+        }
+    } catch (e) {
+        console.error("Error en la carga de santos:", e);
+    }
+}
+
 /* ==============================================
    GEOLOCALIZACIÓN CENTRAL
 ============================================== */
@@ -273,6 +298,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("year").innerText = new Date().getFullYear();
 
     ponerlaFechaActual();
+    santoDelDia();
     loadBulletSummary();
     getMoonPhase();
     generateMiniMoonCalendar();

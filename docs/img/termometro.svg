@@ -1,0 +1,22 @@
+<svg class="termometro" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true">
+  <!-- cuerpo -->
+  <path d="M32 2
+           a10 10 0 0 0-10 10v26.2
+           a16 16 0 1 0 20 0V12
+           a10 10 0 0 0-10-10z
+           m0 4
+           a6 6 0 0 1 6 6v28.1
+           l.9.6
+           a12 12 0 1 1-13.8 0l.9-.6V12
+           a6 6 0 0 1 6-6z"></path>
+           
+  <!-- mercurio -->
+  <rect x="30" y="18" width="4" height="18" rx="2"></rect>
+  <circle cx="32" cy="46" r="6"></circle>
+
+  <!-- marcas -->
+  <rect x="46" y="14" width="12" height="4" rx="2"></rect>
+  <rect x="46" y="24" width="8" height="4" rx="2"></rect>
+  <rect x="46" y="34" width="12" height="4" rx="2"></rect>
+  <rect x="46" y="44" width="8" height="4" rx="2"></rect>
+</svg>

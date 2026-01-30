@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El Tiempo</title>
-    <link rel="stylesheet" href="css/estilos.css?v=20260128-1200">
+    <link rel="stylesheet" href="css/estilos.css">
 </head>
 
 <body class="app-tiempo">
@@ -13,6 +13,7 @@
     <h1>El Tiempo</h1>
     <h2 id="location">Obteniendo ubicación...</h2>
     <h3 id="fecha-actual">Fecha</h3>
+    <h3 id="santo-del-dia">Santo del dia</h3>
 </header>
 
 <main class="container">
@@ -64,7 +65,7 @@
     <h2>Calendario lunar vs tiempo</h2>
     <p>Fase lunar actual: <strong id="moon-phase">Calculando...</strong></p>
     <p id="moon-icon">🌑</p>
-
+<!--
     <h3>Calendario lunar del mes</h3>
 
     <div id="moon-weekdays">
@@ -78,16 +79,43 @@
     </div>
 
     <div id="moon-mini-calendar"></div>
+    -->
 </article>
 
- <article class="tarjeta" id="weather-card">
-        <h2>Tiempo Actual 🌤️</h2>
-        <p>Temperatura: <strong id="temperature">--°C</strong></p>
-        <p>Condición: <strong id="condition">--</strong></p>
-        <p>Humedad: <strong id="humidity">--%</strong></p>
-        <p>Viento: <strong id="wind">-- km/h</strong></p>
-        <a class="btn" href="estadisticas.html">Ver estadísticas</a>
-    </article>
+
+<article class="tarjeta" id="weather-card">
+  <h2>Tiempo Actual 🌤️</h2>
+
+  <p class="temp-linea">
+    <svg
+      class="termometro calor"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 64 64"
+      width="24"
+      aria-hidden="true"
+    >
+      <path d="M32 2
+               a10 10 0 0 0-10 10v26.2
+               a16 16 0 1 0 20 0V12
+               a10 10 0 0 0-10-10z
+               m0 4
+               a6 6 0 0 1 6 6v28.1
+               l.9.6
+               a12 12 0 1 1-13.8 0l.9-.6V12
+               a6 6 0 0 1 6-6z"/>
+      <rect x="30" y="18" width="4" height="18" rx="2"/>
+      <circle cx="32" cy="46" r="6"/>
+    </svg>
+
+    <strong id="temperature">--°C</strong>
+  </p>
+
+  <p>Condición: <strong id="condition">--</strong></p>
+  <p>Humedad: <strong id="humidity">--%</strong></p>
+  <p>Viento: <strong id="wind">-- km/h</strong></p>
+  <a class="btn" href="estadisticas.html">Ver estadísticas</a>
+</article>
+
 
 </main>
 
@@ -95,7 +123,7 @@
     <p>El Tiempo &copy; <span id="year"></span> Tatiana Villa</p>
 </footer>
 
-<script src="js/codigo.js?v=20260128-1200"></script>
+<script src="js/codigo.js"></script>
 
 </body>
 </html>
