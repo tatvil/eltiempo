@@ -2,31 +2,56 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <title>Estadísticas | El Tiempo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estadísticas</title>
     <link rel="stylesheet" href="css/estilos.css">
 </head>
-<body>
+
+<body class="app-tiempo">
 
 <header>
-    <h1>Estadísticas</h1>
+    <h1>Estadísticas del Tiempo</h1>
+    <h2 id="stats-location">Cargando datos…</h2>
 </header>
 
 <main class="container">
 
+    <!-- ÚLTIMO DATO -->
     <article class="tarjeta">
-        <h2>Resumen del Mes</h2>
-        <p>En construcción… </p>
+        <h2>Ahora</h2>
+        <p>Fecha: <strong id="last-date">--</strong></p>
+        <p>Temperatura: <strong id="last-temp">--</strong></p>
+        <p>Humedad: <strong id="last-humidity">--</strong></p>
+        <p>Lluvia: <strong id="last-rain">--</strong></p>
+        <p>Viento: <strong id="last-wind">--</strong></p>
+        <p>Amanecer: <strong id="last-sunrise">--</strong></p>
+        <p>Anochecer: <strong id="last-sunset">--</strong></p>
+    </article>
+
+    <!-- RESUMEN MES ACTUAL -->
+    <article class="tarjeta">
+        <h2>Resumen del mes actual</h2>
+        <p>Días registrados: <strong id="month-days">--</strong></p>
+        <p>Máxima absoluta: <strong id="month-max">--</strong></p>
+        <p>Mínima absoluta: <strong id="month-min">--</strong></p>
+        <p>Lluvia total: <strong id="month-rain">--</strong></p>
+        <p>Humedad media: <strong id="month-humidity">--</strong></p>
+    </article>
+
+    <!-- TENDENCIA HISTÓRICA -->
+    <article class="tarjeta">
+        <h2>Tendencia histórica del mes actual</h2>
+        <div id="trend-container">
+            <p>Cargando tendencia…</p>
+        </div>
     </article>
 
 </main>
 
 <footer>
-    <p>Estadísticas &copy; <span id="year"></span> Tatiana Villa</p>
+    <p>El Tiempo &copy; <span id="year"></span> Tatiana Villa</p>
 </footer>
 
-<script>
-    document.getElementById("year").innerText = new Date().getFullYear();
-</script>
+<script src="js/estadisticas.js"></script>
 </body>
 </html>
